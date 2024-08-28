@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
+(setq user-full-name "Joseph Bozeman"
+      user-mail-address "joseph.l.bozeman@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -32,7 +32,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-henna)
+(setq doom-henna-brighter-comments t)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -40,8 +41,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages")
-(setq org-agenda-files '("~/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages" "~/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/journals"))
+(setq org-directory "/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages")
+(setq org-agenda-files '("/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages" "/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/journals"))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -83,5 +84,7 @@
 (setq org-pretty-entities t)
 
 (setq org-hide-emphasis-markers t)
-(use-package! org-roam :custom (org-roam-directory "~/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages") :config (org-roam-setup))
-
+(use-package! org-roam :custom (org-roam-directory "/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages") :config (org-roam-db-autosync-enable))
+(setq shell-file-name (executable-find "bash"))
+(setq-default vterm-shell (executable-find "fish"))
+(doom-load-envvars-file "~/.config/doom/myenv")

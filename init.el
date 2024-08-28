@@ -27,34 +27,34 @@
 
        :completion
        company           ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
+       helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
-       vertico           ; the search engine of the future
+       ;;vertico           ; the search engine of the future
 
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
-       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       (emoji +unicode)  ; 🙂
+       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;(emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides     ; highlighted indent columns
        (ligatures +fira)         ; ligatures and symbols to make your code pretty again
-       minimap           ; show a map of the code on the side
+       ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink cursor line after big motions
-       ;;neotree           ; a project drawer, like NERDTree for vim
+       neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        tabs              ; a tab bar for Emacs
-       treemacs          ; a project drawer, like neotree but cooler
+       ;;treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
-       workspaces        ; tab emulation, persistence & separate workspaces
+       ;;workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
 
        :editor
@@ -64,7 +64,7 @@
        (format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
-       ;;multiple-cursors  ; editing in many places at once
+       multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
@@ -85,7 +85,7 @@
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       syntax              ; tasing you for every semicolon you forget
+       (syntax +flymake)              ; tasing you for every semicolon you forget
        ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
@@ -101,7 +101,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       lsp               ; M-x vscode
+       (lsp)                ; M-x vscode
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -157,7 +157,7 @@
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       ;;nix               ; I hereby declare "nix geht mehr!"
+       (nix +tree-sitter +lsp)               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org +roam2)                 ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
@@ -208,3 +208,28 @@
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (defun require-with-check (feature &optional filename noerror)                     ;;
+;;   "If FEATURE is not already loaded, load it from FILENAME.                        ;;
+;; This is like `require' except if FEATURE is already a member of the list           ;;
+;; `features’, then check if it was provided by a different file than the             ;;
+;; one that is about to be loaded now (presumably because `load-path' has             ;;
+;; been changed since FILENAME was loaded).  If that is the case, either              ;;
+;; signal an error (the default), or forcibly reload the new file (if                 ;;
+;; NOERROR is equal to `reload'), or otherwise emit a warning."                       ;;
+;;   (let ((lh load-history)                                                          ;;
+;;         (res (require feature filename (if (eq noerror 'reload) nil noerror))))    ;;
+;;     ;; If the `feature' was not yet provided, `require' just loaded the right      ;;
+;;     ;; file, so we're done.                                                        ;;
+;;     (when (eq lh load-history)                                                     ;;
+;;       ;; If `require' did nothing, we need to make sure that was warranted.        ;;
+;;       (let ((fn (locate-file (or filename (symbol-name feature))                   ;;
+;;                              load-path (get-load-suffixes))))                      ;;
+;;         (cond                                                                      ;;
+;;          ((assoc fn load-history) nil)  ;We loaded the right file.                 ;;
+;;          ((eq noerror 'reload) (load fn nil 'nomessage))                           ;;
+;;          (t (funcall (if noerror #'warn #'error)                                   ;;
+;;                      "Feature `%S' is now provided by a different file %s" fn))))) ;;
+;;     res))                                                                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
