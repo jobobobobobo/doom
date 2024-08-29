@@ -32,8 +32,10 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-henna)
-(setq doom-henna-brighter-comments t)
+(setq doom-theme 'doom-acario-dark)
+(setq doom-acario-dark-brighter-comments t)
+(setq doom-acario-dark-brighter-modeline t)
+(setq doom-acario-dark-comment-bg t)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -87,4 +89,3 @@
 (use-package! org-roam :custom (org-roam-directory "/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages") :config (org-roam-db-autosync-enable))
 (setq shell-file-name (executable-find "bash"))
 (setq-default vterm-shell (executable-find "fish"))
-(doom-load-envvars-file "~/.config/doom/myenv")

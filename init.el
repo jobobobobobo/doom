@@ -27,9 +27,9 @@
 
        :completion
        company           ; the ultimate code completion backend
-       helm              ; the *other* search engine for love and life
+       ;; helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;;ivy               ; a search engine for love and life
+       ivy               ; a search engine for love and life
        ;;vertico           ; the search engine of the future
 
        :ui
@@ -48,13 +48,13 @@
        neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       tabs              ; a tab bar for Emacs
+       ;;tabs              ; a tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
-       ;;workspaces        ; tab emulation, persistence & separate workspaces
+       workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
 
        :editor
@@ -80,9 +80,10 @@
 
        :term
        ;;eshell            ; the elisp shell that works everywhere
+       ;; A
        ;;shell             ; simple shell REPL for Emacs
-       ;;term              ; basic terminal emulator for Emacs
-       vterm             ; the best terminal emulation in Emacs
+       term              ; basic terminal emulator for Emacs
+       ;;vterm             ; the best terminal emulation in Emacs
 
        :checkers
        (syntax +flymake)              ; tasing you for every semicolon you forget
@@ -103,7 +104,7 @@
        lookup              ; navigate your code and its documentation
        (lsp)                ; M-x vscode
        magit             ; a git porcelain for Emacs
-       ;;make              ; run make tasks from Emacs
+       make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
@@ -121,7 +122,7 @@
        :lang
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
-       ;;(cc +lsp)         ; C > C++ == 1
+       (cc +lsp)         ; C > C++ == 1
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
@@ -146,7 +147,7 @@
        ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
-       ;;json              ; At least it ain't XML
+       json              ; At least it ain't XML
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
@@ -208,28 +209,3 @@
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (defun require-with-check (feature &optional filename noerror)                     ;;
-;;   "If FEATURE is not already loaded, load it from FILENAME.                        ;;
-;; This is like `require' except if FEATURE is already a member of the list           ;;
-;; `features’, then check if it was provided by a different file than the             ;;
-;; one that is about to be loaded now (presumably because `load-path' has             ;;
-;; been changed since FILENAME was loaded).  If that is the case, either              ;;
-;; signal an error (the default), or forcibly reload the new file (if                 ;;
-;; NOERROR is equal to `reload'), or otherwise emit a warning."                       ;;
-;;   (let ((lh load-history)                                                          ;;
-;;         (res (require feature filename (if (eq noerror 'reload) nil noerror))))    ;;
-;;     ;; If the `feature' was not yet provided, `require' just loaded the right      ;;
-;;     ;; file, so we're done.                                                        ;;
-;;     (when (eq lh load-history)                                                     ;;
-;;       ;; If `require' did nothing, we need to make sure that was warranted.        ;;
-;;       (let ((fn (locate-file (or filename (symbol-name feature))                   ;;
-;;                              load-path (get-load-suffixes))))                      ;;
-;;         (cond                                                                      ;;
-;;          ((assoc fn load-history) nil)  ;We loaded the right file.                 ;;
-;;          ((eq noerror 'reload) (load fn nil 'nomessage))                           ;;
-;;          (t (funcall (if noerror #'warn #'error)                                   ;;
-;;                      "Feature `%S' is now provided by a different file %s" fn))))) ;;
-;;     res))                                                                          ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
