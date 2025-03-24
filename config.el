@@ -32,19 +32,15 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-acario-dark)
-(setq doom-acario-dark-brighter-comments t)
-(setq doom-acario-dark-brighter-modeline t)
-(setq doom-acario-dark-comment-bg t)
-
+(setq doom-theme 'doom-gruvbox)
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages")
-(setq org-agenda-files '("/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages" "/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/journals"))
+(setq org-directory "~/org")
+(setq org-agenda-files "~/org")
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -78,14 +74,60 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(use-package! evil-org
-  :config
-  (map! :map evil-org-mode-map
-        :i "C-k" #'evil-insert-digraph))
+;;(use-package! evil-org
+;;  :config
+;;  (map! :map evil-org-mode-map
+;;        :i "C-k" #'evil-insert-digraph))
 
 (setq org-pretty-entities t)
-
+(set-frame-font "-CTDB-FiraCode Nerd Font Mono-bold-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 (setq org-hide-emphasis-markers t)
-(use-package! org-roam :custom (org-roam-directory "/mnt/c/Users/14054/iCloudDrive/iCloud\~com\~logseq\~logseq/the-second-brain/pages") :config (org-roam-db-autosync-enable))
+(use-package! org-gnosis
+  :ensure t
+  :init (define-prefix-command 'nlbg/notes-map)
+  (define-prefix-command 'nlbg/journal-map)
+  :config (setf org-gnosis-dir "~/org"
+                org-gnosis-create-as-gpg nil
+                org-gnosis-todo-files org-agenda-files
+                org-gnosis-bullet-point-char "+"
+                org-gnosis-completing-read-func #'org-completing-read
+                org-gnosis-show-tags t)
+
+  (defun example/org-gnosis-book-template ()
+    (let ((date (format-time-string "%Y-%m-%d"))
+          (book-title (completing-read
+                       "Example book: "
+                       '("Free Software, Free Society" "How to Take Smart Notes"))))
+      (format "#+DATE: %s \n#+BOOK_TITLE: %s\n\n* Main Idea\n* Key Points\n* Own Thoughts"
+              date book-title)))
+
+  (add-to-list 'org-gnosis-node-templates
+               '("Book Example" example/org-gnosis-book-template))
+  :bind (("C-c n" . nlbg/notes-map)
+         ("C-c n j" . nlbg/journal-map)
+         :map nlbg/notes-map
+         ("f" . org-gnosis-find)
+         ("i" . org-gnosis-insert)
+         ("t" . org-gnosis-find-by-tag)
+         :map nlbg/journal-map
+         ("j" . org-gnosis-journal)
+         ("f" . org-gnosis-journal-find)
+         ("i" . org-gnosis-journal-insert)
+         :map org-mode-map
+         ("C-c C-." . org-gnosis-insert-tag)
+         ("C-c i" . org-id-get-create)))
 (setq shell-file-name (executable-find "bash"))
 (setq-default vterm-shell (executable-find "fish"))
+;;(add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+(map!
+ :map smartparens-mode-map
+ "C-M-f" #'sp-forward-sexp
+ "C-M-b" #'sp-backward-sexp
+ "C-M-u" #'sp-unwrap-sexp
+ "C-M-k" #'sp-kill-sexp
+ "C-M-s" #'sp-split-sexp
+ "C-M-(" #'sp-wrap-round
+ "C-M-[" #'sp-wrap-square
+ "C-M-{" #'sp-wrap-curly)
+(use-package! magit-gitflow :config
+              (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))

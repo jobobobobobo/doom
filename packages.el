@@ -50,3 +50,7 @@
                                         ;(unpin! t)
 
 (package! graphviz-dot-mode)
+(package! magit-gitflow :recipe
+  (:host github :repo "jtatarik/magit-gitflow"))
+(package! popon :recipe
+  (:host github :repo "jobobobobobo/emacs-popon"))

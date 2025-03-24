@@ -21,7 +21,7 @@
      "ff24d14f5f7d355f47d53fd016565ed128bf3af30eb7ce8cae307ee4fe7f3fd0"
      "32f22d075269daabc5e661299ca9a08716aa8cda7e85310b9625c434041916af"
      "02d422e5b99f54bd4516d4157060b874d14552fe613ea7047c4a5cfa1288cf4f" default))
- '(package-selected-packages '(## haki-theme)))
+ '(package-selected-packages '(## haki-theme magit-gitflow)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
